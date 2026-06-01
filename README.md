@@ -16,6 +16,12 @@ The script looks up a VM by name in Nutanix Prism Central, creates a Nutanix v4 
 - Prints a structured result summary
 - Provides basic error classification for common permission and request issues
 
+## Important Authentication Requirement
+
+The same user account must exist on Prism Central and on every configured Prism Element cluster.
+
+The username and password must be identical everywhere. This script uses one shared authentication token for Prism Central and all Prism Element API calls. Different users, different passwords, or separate credentials per Prism Element are not supported by this script.
+
 ## Requirements
 
 - Python 3.8 or newer
@@ -23,6 +29,7 @@ The script looks up a VM by name in Nutanix Prism Central, creates a Nutanix v4 
 - Network access to the configured Prism Element clusters
 - A valid Nutanix API token
 - Correct cluster UUID to Prism Element host mappings
+- The same user with the same password configured on Prism Central and all Prism Element clusters
 
 This project uses only the Python standard library. No external Python packages are required.
 
@@ -34,6 +41,8 @@ Before running the script, update the following values in `nutanix_vm_protection
 NTNX_PRISMCENTRAL_IP = "YOUR_IP:9440"
 PE_AND_PC_TOKEN = "YOUR GENERATED TOKEN FROM nutanix_auth.py"
 ```
+
+The token must be generated for a user that exists with the same password on Prism Central and on all configured Prism Element clusters.
 
 Then configure your Prism Element hosts by cluster UUID:
 
